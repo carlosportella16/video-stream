@@ -11,21 +11,8 @@
 	<groupId>com.streaming</groupId>
 	<artifactId>streaming-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+	<name>Streaming Service</name>
+	<description>Video Streaming Service</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
@@ -61,6 +48,7 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>s3</artifactId>
+            <version>2.28.0</version>
         </dependency>
 	</dependencies>
 
