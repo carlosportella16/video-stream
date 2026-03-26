@@ -1,0 +1,10 @@
+<video id="video" controls width="600"></video>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js"></script>
+<script>
+    const video = document.getElementById('video');
+    const hls = new Hls();
+
+    hls.loadSource('http://localhost:8081/video/movie1/playlist');
+    hls.attachMedia(video);
+</script>
