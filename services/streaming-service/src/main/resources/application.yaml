@@ -1,9 +1,9 @@
 server:
-  port: 8083
+  port: 8081
 
 spring:
   application:
-    name: analytics-service
+    name: streaming-service
 
   kafka:
     bootstrap-servers: kafka:9092
