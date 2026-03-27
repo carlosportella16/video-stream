@@ -1,9 +1,15 @@
 server:
   port: 8081
+  tomcat:
+    threads:
+      max: 200
 
 spring:
   application:
     name: streaming-service
+  threads:
+    virtual:
+      enabled: true
 
 aws:
   s3:
