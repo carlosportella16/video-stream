@@ -10,6 +10,13 @@ spring:
   threads:
     virtual:
       enabled: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 3
 
 aws:
   s3:
@@ -18,9 +25,6 @@ aws:
     region: us-east-1
     access-key: test
     secret-key: test
-
-kafka:
-  bootstrap-servers: kafka:9092
 
 logging:
   level:
