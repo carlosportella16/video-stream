@@ -7,3 +7,17 @@ spring:
 
   kafka:
     bootstrap-servers: kafka:9092
+    consumer:
+      group-id: analytics-group
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      auto-commit-interval-ms: 1000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.type.mapping: videoEvent:com.streaming.analytics.model.VideoEvent
+
+logging:
+  level:
+    com.streaming.analytics: INFO
+    org.springframework.kafka: WARN
