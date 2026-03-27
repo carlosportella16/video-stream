@@ -7,7 +7,7 @@ spring:
 
 aws:
   s3:
-    endpoint: http://localstack:4566
+    endpoint: http://localhost:4566
     bucket: videos
     region: us-east-1
     access-key: test
@@ -15,3 +15,7 @@ aws:
 
 kafka:
   bootstrap-servers: kafka:9092
+
+logging:
+  level:
+    com.streaming.integration: INFO
