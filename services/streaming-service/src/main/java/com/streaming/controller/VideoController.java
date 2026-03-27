@@ -4,10 +4,7 @@ import com.streaming.service.VideoStreamingService;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 
@@ -78,5 +75,20 @@ public class VideoController {
             @PathVariable String chunk) {
 
         return getChunk(videoId, chunk);
+    }
+
+    @PostMapping("/{videoId}/play")
+    public void play(@PathVariable String videoId) {
+        videoStreamingService.sendPlayEvent(videoId);
+    }
+
+    @PostMapping("/{videoId}/pause")
+    public void pause(@PathVariable String videoId) {
+        videoStreamingService.sendPauseEvent(videoId);
+    }
+
+    @PostMapping("/{videoId}/stop")
+    public void stop(@PathVariable String videoId) {
+        videoStreamingService.sendStopEvent(videoId);
     }
 }
