@@ -1,5 +1,6 @@
 package com.streaming.service;
 
+import com.streaming.domain.VideoEvent;
 import com.streaming.integration.S3VideoStorageService;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.core.ResponseInputStream;
@@ -13,9 +14,11 @@ import java.nio.charset.StandardCharsets;
 public class VideoStreamingService {
 
     private final S3VideoStorageService s3Service;
+    private final KafkaProducerService kafkaProducer;
 
-    public VideoStreamingService(S3VideoStorageService s3Service) {
+    public VideoStreamingService(S3VideoStorageService s3Service, KafkaProducerService kafkaProducer) {
         this.s3Service = s3Service;
+        this.kafkaProducer = kafkaProducer;
     }
 
     /**
@@ -66,6 +69,37 @@ public class VideoStreamingService {
     public ResponseInputStream<GetObjectResponse> getChunk(String videoId, String chunk) {
         String key = videoId + "/" + chunk;
         return s3Service.getObject(key);
+    }
+
+    public void sendPlayEvent(String videoId) {
+        kafkaProducer.sendEvent(new VideoEvent(
+                "PLAY",
+                videoId,
+                System.currentTimeMillis(),
+                generateSessionId()
+        ));
+    }
+
+    public void sendPauseEvent(String videoId) {
+        kafkaProducer.sendEvent(new VideoEvent(
+                "PAUSE",
+                videoId,
+                System.currentTimeMillis(),
+                generateSessionId()
+        ));
+    }
+
+    public void sendStopEvent(String videoId) {
+        kafkaProducer.sendEvent(new VideoEvent(
+                "STOP",
+                videoId,
+                System.currentTimeMillis(),
+                generateSessionId()
+        ));
+    }
+
+    private String generateSessionId() {
+        return java.util.UUID.randomUUID().toString();
     }
 
     /**
