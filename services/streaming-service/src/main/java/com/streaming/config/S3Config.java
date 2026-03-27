@@ -35,6 +35,7 @@ public class S3Config {
                                 AwsBasicCredentials.create(accessKey, secretKey)
                         )
                 )
+                .forcePathStyle(true)
                 .build();
     }
 }
