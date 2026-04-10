@@ -17,6 +17,8 @@ public class VideoEvent {
     private String sessionId;
 
 
+    public VideoEvent() {}
+
     public VideoEvent(String event, String videoId, Long timestamp, String sessionId) {
         this.event = event;
         this.videoId = videoId;
@@ -54,6 +56,11 @@ public class VideoEvent {
 
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
+    }
+
+    @Override
+    public String toString() {
+        return "VideoEvent{event='" + event + "', videoId='" + videoId + "', sessionId='" + sessionId + "', timestamp=" + timestamp + '}';
     }
 }
 
