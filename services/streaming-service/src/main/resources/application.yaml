@@ -3,6 +3,10 @@ server:
   tomcat:
     threads:
       max: 200
+      min-spare: 20
+    connection-timeout: 20s
+    accept-count: 100
+    max-http-response-header-size: 8KB
 
 spring:
   application:
