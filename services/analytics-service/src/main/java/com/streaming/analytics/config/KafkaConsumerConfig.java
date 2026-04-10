@@ -33,6 +33,7 @@ public class KafkaConsumerConfig {
         props.put("spring.json.type.mapping", "videoEvent:com.streaming.analytics.model.VideoEvent");
         props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.streaming.analytics.model.VideoEvent");
         props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
+        props.put(JsonDeserializer.USE_TYPE_INFO_HEADERS, false);
         props.put("auto.offset.reset", "earliest");
         props.put("enable.auto.commit", true);
         props.put("auto.commit.interval.ms", 1000);
