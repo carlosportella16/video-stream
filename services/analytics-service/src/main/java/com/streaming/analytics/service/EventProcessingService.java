@@ -10,6 +10,12 @@ public class EventProcessingService {
 
     private static final Logger log = LoggerFactory.getLogger(EventProcessingService.class);
 
+    private final EventStore eventStore;
+
+    public EventProcessingService(EventStore eventStore) {
+        this.eventStore = eventStore;
+    }
+
     public void processEvent(VideoEvent event) {
         validateEvent(event);
         logEvent(event);
@@ -34,7 +40,7 @@ public class EventProcessingService {
     }
 
     private void persistEvent(VideoEvent event) {
-        // TODO: Implement persistence (database, file, etc)
+        eventStore.add(event);
         log.debug("Event persisted: {}", event);
     }
 }
