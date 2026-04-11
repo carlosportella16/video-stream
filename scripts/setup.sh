@@ -56,6 +56,16 @@ echo -e "${GREEN}✓ analytics-service built successfully${NC}"
 # Return to project root
 cd "$PROJECT_ROOT"
 
+# Build Angular frontend image
+echo -e "\n${YELLOW}🅰  Building Angular frontend...${NC}"
+cd "$PROJECT_ROOT"
+docker-compose build frontend 2>&1
+if [ $? -ne 0 ]; then
+    echo -e "${RED}❌ Failed to build Angular frontend${NC}"
+    exit 1
+fi
+echo -e "${GREEN}✓ Angular frontend built successfully${NC}"
+
 echo -e "\n${YELLOW}🐳 Starting Docker containers...${NC}\n"
 
 # Start docker-compose from project root
@@ -118,6 +128,14 @@ if curl -s http://localhost:4566/_localstack/health | grep -q '"services"'; then
     echo -e "${GREEN}✓ LocalStack S3 (http://localhost:4566)${NC}"
 else
     echo -e "${RED}❌ LocalStack is not responding${NC}"
+    FAILED=1
+fi
+
+# Angular Frontend
+if curl -s -o /dev/null -w "%{http_code}" http://localhost/ | grep -q "200"; then
+    echo -e "${GREEN}✓ Angular Frontend (http://localhost)${NC}"
+else
+    echo -e "${RED}❌ Angular Frontend is not responding${NC}"
     FAILED=1
 fi
 
